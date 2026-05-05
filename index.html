@@ -122,7 +122,7 @@
         .why-unified span { font-size: 0.78rem; color: #999; }
 
         /* ── PROGRAMS HORIZONTAL SCROLL ── */
-        .programs-sec { background: #111; padding: 80px 0 80px 60px; overflow: hidden; }
+        .programs-sec { background: #111; padding: 80px 0 80px 60px; }
         .programs-head {
             display: flex; justify-content: space-between; align-items: flex-end;
             padding-right: 60px; margin-bottom: 44px;
@@ -138,8 +138,19 @@
             font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; padding-bottom: 4px;
         }
         .scroll-cue::before { content: ''; width: 32px; height: 1px; background: rgba(255,255,255,0.25); }
-        .prog-cards { display: flex; gap: 18px; overflow-x: auto; padding-right: 60px; scrollbar-width: none; padding-bottom: 4px; }
+        .scroll-arrows { display: flex; gap: 10px; margin-bottom: 24px; padding-right: 60px; justify-content: flex-end; }
+        .scroll-arrow {
+            width: 42px; height: 42px; border: 1.5px solid rgba(255,255,255,0.25); border-radius: 50%;
+            background: transparent; color: #fff; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .scroll-arrow:hover { border-color: var(--orange); background: var(--orange); }
+        .scroll-arrow.dark { border-color: #ccc; color: var(--text); }
+        .scroll-arrow.dark:hover { border-color: var(--orange); background: var(--orange); color: #fff; }
+        .prog-cards { display: flex; gap: 18px; overflow-x: auto; padding-right: 60px; scrollbar-width: none; padding-bottom: 4px; cursor: grab; }
         .prog-cards::-webkit-scrollbar { display: none; }
+        .prog-cards.dragging { cursor: grabbing; }
         .prog-card { flex-shrink: 0; width: 370px; height: 300px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; }
         .prog-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; display: block; }
         .prog-card:hover img { transform: scale(1.06); }
@@ -188,8 +199,9 @@
         .testi-sec { padding: 100px 60px; background: var(--cream); }
         .testi-sec .sec-label { margin-bottom: 10px; }
         .testi-sec h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text); margin-bottom: 44px; }
-        .testi-scroll { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+        .testi-scroll { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; cursor: grab; }
         .testi-scroll::-webkit-scrollbar { display: none; }
+        .testi-scroll.dragging { cursor: grabbing; }
         .testi-card { flex-shrink: 0; width: 272px; background: #fff; border-radius: 16px; padding: 26px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
         .stars { color: #f5a623; font-size: 1rem; margin-bottom: 14px; }
         .testi-card p { font-size: 0.87rem; line-height: 1.62; color: var(--text); margin-bottom: 22px; }
@@ -364,7 +376,11 @@
         </div>
         <div class="scroll-cue">Scroll to Explore</div>
     </div>
-    <div class="prog-cards">
+    <div class="scroll-arrows">
+        <button class="scroll-arrow" id="prog-prev">&#8592;</button>
+        <button class="scroll-arrow" id="prog-next">&#8594;</button>
+    </div>
+    <div class="prog-cards" id="prog-cards">
         <div class="prog-card">
             <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Functional Power">
             <div class="prog-overlay"></div>
@@ -488,8 +504,14 @@
 <!-- TESTIMONIALS — HORIZONTAL SCROLL -->
 <section class="testi-sec">
     <div class="sec-label">The Proof</div>
-    <h2>REAL IMPACT.</h2>
-    <div class="testi-scroll">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:0;">
+        <h2>REAL IMPACT.</h2>
+        <div style="display:flex; gap:10px; padding-bottom:44px;">
+            <button class="scroll-arrow dark" id="testi-prev">&#8592;</button>
+            <button class="scroll-arrow dark" id="testi-next">&#8594;</button>
+        </div>
+    </div>
+    <div class="testi-scroll" id="testi-scroll">
         <div class="testi-card">
             <div class="stars">★★★★★</div>
             <p>"Replaced years of random yoga and strength burnout with visible, consistent results."</p>
@@ -636,6 +658,33 @@
 </footer>
 
 <script>
+    /* ── DRAG TO SCROLL ── */
+    function makeDraggable(el) {
+        let isDown = false, startX, scrollLeft;
+        el.addEventListener('mousedown', e => {
+            isDown = true; el.classList.add('dragging');
+            startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
+        });
+        el.addEventListener('mouseleave', () => { isDown = false; el.classList.remove('dragging'); });
+        el.addEventListener('mouseup', () => { isDown = false; el.classList.remove('dragging'); });
+        el.addEventListener('mousemove', e => {
+            if (!isDown) return; e.preventDefault();
+            el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+        });
+    }
+
+    const progCards = document.getElementById('prog-cards');
+    const testiScroll = document.getElementById('testi-scroll');
+    makeDraggable(progCards);
+    makeDraggable(testiScroll);
+
+    /* ── ARROW BUTTONS ── */
+    const cardW = 390;
+    document.getElementById('prog-prev').addEventListener('click', () => progCards.scrollBy({ left: -cardW, behavior: 'smooth' }));
+    document.getElementById('prog-next').addEventListener('click', () => progCards.scrollBy({ left: cardW, behavior: 'smooth' }));
+    document.getElementById('testi-prev').addEventListener('click', () => testiScroll.scrollBy({ left: -290, behavior: 'smooth' }));
+    document.getElementById('testi-next').addEventListener('click', () => testiScroll.scrollBy({ left: 290, behavior: 'smooth' }));
+
     /* ── RESULTS SLIDER ── */
     let resCur = 0;
     const resSlides = document.querySelectorAll('.result-slide');
