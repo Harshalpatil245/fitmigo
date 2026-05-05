@@ -121,10 +121,11 @@
         .why-unified strong { display: block; font-size: 0.92rem; margin-bottom: 2px; }
         .why-unified span { font-size: 0.78rem; color: #999; }
 
-        /* ── PROGRAMS VERTICAL SLIDER ── */
-        .programs-sec { background: #111; padding: 80px 60px; }
+        /* ── PROGRAMS HORIZONTAL SCROLL ── */
+        .programs-sec { background: #111; padding: 80px 0 80px 60px; overflow: hidden; }
         .programs-head {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 44px;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            padding-right: 60px; margin-bottom: 44px;
         }
         .programs-sec .sec-label { color: var(--orange); margin-bottom: 10px; }
         .programs-sec .sec-label::before { background: var(--orange); }
@@ -132,38 +133,21 @@
             font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
             font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: #fff;
         }
-        .prog-nav-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
-        .prog-arrow {
-            width: 48px; height: 48px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 50%;
-            background: transparent; color: #fff; font-size: 1.1rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.2s, background 0.2s;
+        .scroll-cue {
+            display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.4);
+            font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; padding-bottom: 4px;
         }
-        .prog-arrow:hover { border-color: var(--orange); background: var(--orange); }
-        .prog-counter { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; }
-
-        .prog-viewport { overflow: hidden; border-radius: 16px; }
-        .prog-track { display: flex; flex-direction: column; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
-        .prog-slide { flex-shrink: 0; width: 100%; height: 420px; position: relative; }
-        .prog-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .prog-slide-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.2) 100%); }
-        .prog-slide-content { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-between; padding: 40px 48px; }
-        .prog-slide-left .p-num {
-            font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-            font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.45);
-            margin-bottom: 8px;
-        }
-        .prog-slide-left .p-label {
-            font-family: 'Playfair Display', serif; font-style: italic;
-            color: var(--orange); font-size: 0.92rem; margin-bottom: 8px;
-        }
-        .prog-slide-left h3 {
-            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-            font-size: clamp(2rem, 3.5vw, 3rem); text-transform: uppercase; color: #fff;
-        }
-        .prog-dots { display: flex; gap: 8px; margin-top: 24px; justify-content: center; }
-        .prog-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: background 0.3s, transform 0.3s; border: none; }
-        .prog-dot.on { background: var(--orange); transform: scale(1.3); }
+        .scroll-cue::before { content: ''; width: 32px; height: 1px; background: rgba(255,255,255,0.25); }
+        .prog-cards { display: flex; gap: 18px; overflow-x: auto; padding-right: 60px; scrollbar-width: none; padding-bottom: 4px; }
+        .prog-cards::-webkit-scrollbar { display: none; }
+        .prog-card { flex-shrink: 0; width: 370px; height: 300px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; }
+        .prog-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; display: block; }
+        .prog-card:hover img { transform: scale(1.06); }
+        .prog-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%); }
+        .prog-num { position: absolute; top: 18px; right: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700; color: rgba(255,255,255,0.25); }
+        .prog-info { position: absolute; bottom: 24px; left: 24px; }
+        .prog-info .card-label { font-family: 'Playfair Display', serif; font-style: italic; color: var(--orange); font-size: 0.82rem; margin-bottom: 5px; }
+        .prog-info h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.55rem; text-transform: uppercase; color: #fff; }
 
         /* ── HOW IT WORKS ── */
         .how-sec { padding: 100px 60px; background: var(--cream); }
@@ -200,32 +184,19 @@
         .t-num strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.2rem; }
         .t-num span { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
 
-        /* ── TESTIMONIALS VERTICAL SLIDER ── */
+        /* ── TESTIMONIALS HORIZONTAL SCROLL ── */
         .testi-sec { padding: 100px 60px; background: var(--cream); }
-        .testi-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 44px; }
-        .testi-sec h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text); margin-top: 4px; }
-        .testi-nav-btns { display: flex; gap: 10px; align-items: center; padding-bottom: 4px; }
-        .testi-arrow {
-            width: 44px; height: 44px; border: 1.5px solid #ccc; border-radius: 50%;
-            background: transparent; color: var(--text); font-size: 1rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.2s, background 0.2s, color 0.2s;
-        }
-        .testi-arrow:hover { border-color: var(--orange); background: var(--orange); color: #fff; }
-
-        .testi-viewport { overflow: hidden; }
-        .testi-track { display: flex; flex-direction: column; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
-        .testi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex-shrink: 0; padding: 4px; }
-        .testi-card { background: #fff; border-radius: 16px; padding: 26px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+        .testi-sec .sec-label { margin-bottom: 10px; }
+        .testi-sec h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text); margin-bottom: 44px; }
+        .testi-scroll { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+        .testi-scroll::-webkit-scrollbar { display: none; }
+        .testi-card { flex-shrink: 0; width: 272px; background: #fff; border-radius: 16px; padding: 26px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
         .stars { color: #f5a623; font-size: 1rem; margin-bottom: 14px; }
         .testi-card p { font-size: 0.87rem; line-height: 1.62; color: var(--text); margin-bottom: 22px; }
         .testi-author { display: flex; align-items: center; gap: 10px; }
         .t-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: var(--orange); border: 1px solid #e5d9c9; flex-shrink: 0; }
         .t-info strong { display: block; font-size: 0.83rem; }
         .t-info span { font-size: 0.72rem; color: #aaa; }
-        .testi-dots { display: flex; gap: 8px; margin-top: 24px; justify-content: center; }
-        .testi-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background 0.3s, transform 0.3s; border: none; }
-        .testi-dot.on { background: var(--dark); transform: scale(1.3); }
 
         /* ── PRICING ── */
         .pricing-sec { background: #111; padding: 100px 60px; }
@@ -274,25 +245,21 @@
         .footer-bar-links a { font-size: 0.8rem; color: #444; text-decoration: none; }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-            .testi-row { grid-template-columns: repeat(2, 1fr); }
-        }
         @media (max-width: 900px) {
             .hero { grid-template-columns: 1fr; }
             .hero-right { height: 55vw; min-height: 320px; }
             .hero-left { padding: 110px 28px 60px; }
             .why-inner { grid-template-columns: 1fr; padding: 0 28px; gap: 48px; }
-            .programs-sec { padding: 60px 28px; }
-            .prog-slide { height: 300px; }
-            .prog-slide-content { padding: 28px; }
+            .programs-sec { padding: 60px 0 60px 28px; }
+            .programs-head { padding-right: 28px; }
+            .prog-cards { padding-right: 28px; }
+            .prog-card { width: 280px; height: 240px; }
             .how-sec { padding: 72px 28px; }
             .how-grid { grid-template-columns: 1fr; }
             .results-sec { padding: 72px 28px; }
             .result-slide.active { grid-template-columns: 1fr; }
             .result-img { height: 240px; }
             .testi-sec { padding: 72px 28px; }
-            .testi-row { grid-template-columns: 1fr; }
-            .testi-header { flex-direction: column; align-items: flex-start; gap: 16px; }
             .pricing-sec { padding: 72px 28px; }
             .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
             .transform-body { left: 28px; bottom: 40px; }
@@ -304,7 +271,7 @@
         @media (max-width: 480px) {
             .hero-heading { font-size: 3.2rem; }
             .hero-heading em { font-size: 2.8rem; }
-            .prog-slide { height: 260px; }
+            .prog-card { width: 240px; height: 200px; }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bar { flex-direction: column; gap: 12px; text-align: center; }
         }
@@ -388,72 +355,52 @@
     </div>
 </section>
 
-<!-- PROGRAMS — VERTICAL SLIDER -->
+<!-- PROGRAMS — HORIZONTAL SCROLL -->
 <section class="programs-sec" id="programs">
     <div class="programs-head">
         <div>
             <div class="sec-label">The Ecosystem</div>
             <h2>COMPLETE INTEGRATION</h2>
         </div>
-        <div class="prog-nav-btns">
-            <button class="prog-arrow" id="prog-up" aria-label="Previous">↑</button>
-            <span class="prog-counter" id="prog-counter">1 / 4</span>
-            <button class="prog-arrow" id="prog-down" aria-label="Next">↓</button>
-        </div>
+        <div class="scroll-cue">Scroll to Explore</div>
     </div>
-    <div class="prog-viewport" id="prog-viewport">
-        <div class="prog-track" id="prog-track">
-            <div class="prog-slide">
-                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1200&q=80" alt="Functional Power">
-                <div class="prog-slide-overlay"></div>
-                <div class="prog-slide-content">
-                    <div class="prog-slide-left">
-                        <div class="p-num">01</div>
-                        <div class="p-label">Build True Strength</div>
-                        <h3>FUNCTIONAL POWER</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="prog-slide">
-                <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1200&q=80" alt="Yoga">
-                <div class="prog-slide-overlay"></div>
-                <div class="prog-slide-content">
-                    <div class="prog-slide-left">
-                        <div class="p-num">02</div>
-                        <div class="p-label">Find Your Balance</div>
-                        <h3>YOGA & FLUIDITY</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="prog-slide">
-                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80" alt="Nutrition">
-                <div class="prog-slide-overlay"></div>
-                <div class="prog-slide-content">
-                    <div class="prog-slide-left">
-                        <div class="p-num">03</div>
-                        <div class="p-label">Fuel Your Performance</div>
-                        <h3>PRECISION NUTRITION</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="prog-slide">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80" alt="Recovery">
-                <div class="prog-slide-overlay"></div>
-                <div class="prog-slide-content">
-                    <div class="prog-slide-left">
-                        <div class="p-num">04</div>
-                        <div class="p-label">Restore & Rebuild</div>
-                        <h3>ACTIVE RECOVERY</h3>
-                    </div>
-                </div>
+    <div class="prog-cards">
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Functional Power">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">01</div>
+            <div class="prog-info">
+                <div class="card-label">Build True Strength</div>
+                <h3>FUNCTIONAL POWER</h3>
             </div>
         </div>
-    </div>
-    <div class="prog-dots" id="prog-dots">
-        <button class="prog-dot on" onclick="goProgSlide(0)"></button>
-        <button class="prog-dot" onclick="goProgSlide(1)"></button>
-        <button class="prog-dot" onclick="goProgSlide(2)"></button>
-        <button class="prog-dot" onclick="goProgSlide(3)"></button>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80" alt="Yoga">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">02</div>
+            <div class="prog-info">
+                <div class="card-label">Find Your Balance</div>
+                <h3>YOGA & FLUIDITY</h3>
+            </div>
+        </div>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="Nutrition">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">03</div>
+            <div class="prog-info">
+                <div class="card-label">Fuel Your Performance</div>
+                <h3>PRECISION NUTRITION</h3>
+            </div>
+        </div>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Recovery">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">04</div>
+            <div class="prog-info">
+                <div class="card-label">Restore & Rebuild</div>
+                <h3>ACTIVE RECOVERY</h3>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -538,79 +485,59 @@
     </div>
 </section>
 
-<!-- TESTIMONIALS — VERTICAL SLIDER -->
+<!-- TESTIMONIALS — HORIZONTAL SCROLL -->
 <section class="testi-sec">
-    <div class="testi-header">
-        <div>
-            <div class="sec-label">The Proof</div>
-            <h2>REAL IMPACT.</h2>
-        </div>
-        <div class="testi-nav-btns">
-            <button class="testi-arrow" id="testi-up" aria-label="Previous">↑</button>
-            <button class="testi-arrow" id="testi-down" aria-label="Next">↓</button>
-        </div>
-    </div>
-    <div class="testi-viewport" id="testi-viewport">
-        <div class="testi-track" id="testi-track">
-            <!-- Row 1 -->
-            <div class="testi-row">
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Replaced years of random yoga and strength burnout with visible, consistent results."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">S</div>
-                        <div class="t-info"><strong>Sarah K.</strong><span>Lifestyle Coach</span></div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"The structured plan is intuitive, forgiving, and incredibly effective."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">M</div>
-                        <div class="t-info"><strong>Michael T.</strong><span>Father & Entrepreneur</span></div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Daily mindfulness with calisthenics transformed my physique and stress."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">E</div>
-                        <div class="t-info"><strong>Elena R.</strong><span>Former Athlete</span></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Row 2 -->
-            <div class="testi-row">
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"I lost 8kg and finally learned how to eat without guilt or restriction."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">D</div>
-                        <div class="t-info"><strong>David W.</strong><span>Beginner</span></div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"The check-ins kept me accountable even through the most stressful weeks."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">J</div>
-                        <div class="t-info"><strong>Jaya M.</strong><span>Consultant</span></div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Best investment I've made. My energy levels are completely different now."</p>
-                    <div class="testi-author">
-                        <div class="t-avatar">R</div>
-                        <div class="t-info"><strong>Rahul S.</strong><span>Software Engineer</span></div>
-                    </div>
-                </div>
+    <div class="sec-label">The Proof</div>
+    <h2>REAL IMPACT.</h2>
+    <div class="testi-scroll">
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"Replaced years of random yoga and strength burnout with visible, consistent results."</p>
+            <div class="testi-author">
+                <div class="t-avatar">S</div>
+                <div class="t-info"><strong>Sarah K.</strong><span>Lifestyle Coach</span></div>
             </div>
         </div>
-    </div>
-    <div class="testi-dots" id="testi-dots">
-        <button class="testi-dot on" onclick="goTestiSlide(0)"></button>
-        <button class="testi-dot" onclick="goTestiSlide(1)"></button>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"The structured plan is intuitive, forgiving, and incredibly effective."</p>
+            <div class="testi-author">
+                <div class="t-avatar">M</div>
+                <div class="t-info"><strong>Michael T.</strong><span>Father & Entrepreneur</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"Daily mindfulness with calisthenics transformed my physique and stress."</p>
+            <div class="testi-author">
+                <div class="t-avatar">E</div>
+                <div class="t-info"><strong>Elena R.</strong><span>Former Athlete</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"I lost 8kg and finally learned how to eat without guilt or restriction."</p>
+            <div class="testi-author">
+                <div class="t-avatar">D</div>
+                <div class="t-info"><strong>David W.</strong><span>Beginner</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"The check-ins kept me accountable even through the most stressful weeks."</p>
+            <div class="testi-author">
+                <div class="t-avatar">J</div>
+                <div class="t-info"><strong>Jaya M.</strong><span>Consultant</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"Best investment I've made. My energy levels are completely different now."</p>
+            <div class="testi-author">
+                <div class="t-avatar">R</div>
+                <div class="t-info"><strong>Rahul S.</strong><span>Software Engineer</span></div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -709,41 +636,6 @@
 </footer>
 
 <script>
-    /* ── PROGRAMS VERTICAL SLIDER ── */
-    let progCur = 0;
-    const progTotal = 4;
-    const progTrack = document.getElementById('prog-track');
-    const progCounter = document.getElementById('prog-counter');
-    const progDots = document.querySelectorAll('.prog-dot');
-
-    function getProgSlideH() {
-        return progTrack.children[0].offsetHeight;
-    }
-
-    function goProgSlide(n) {
-        progCur = Math.max(0, Math.min(n, progTotal - 1));
-        progTrack.style.transform = `translateY(-${progCur * getProgSlideH()}px)`;
-        progCounter.textContent = `${progCur + 1} / ${progTotal}`;
-        progDots.forEach((d, i) => d.classList.toggle('on', i === progCur));
-    }
-
-    document.getElementById('prog-up').addEventListener('click', () => goProgSlide(progCur - 1));
-    document.getElementById('prog-down').addEventListener('click', () => goProgSlide(progCur + 1));
-
-    // Resize: recalculate position
-    window.addEventListener('resize', () => goProgSlide(progCur));
-
-    // Auto-advance
-    setInterval(() => goProgSlide((progCur + 1) % progTotal), 4500);
-
-    // Touch swipe for programs
-    let pTouchStart = 0;
-    document.getElementById('prog-viewport').addEventListener('touchstart', e => pTouchStart = e.touches[0].clientY, { passive: true });
-    document.getElementById('prog-viewport').addEventListener('touchend', e => {
-        const diff = pTouchStart - e.changedTouches[0].clientY;
-        if (Math.abs(diff) > 40) goProgSlide(diff > 0 ? progCur + 1 : progCur - 1);
-    });
-
     /* ── RESULTS SLIDER ── */
     let resCur = 0;
     const resSlides = document.querySelectorAll('.result-slide');
@@ -758,41 +650,6 @@
     }
 
     setInterval(() => goResultSlide((resCur + 1) % resSlides.length), 5000);
-
-    /* ── TESTIMONIALS VERTICAL SLIDER ── */
-    let testiCur = 0;
-    const testiTrack = document.getElementById('testi-track');
-    const testiDots = document.querySelectorAll('.testi-dot');
-
-    function getTestiRowH() {
-        return testiTrack.children[0].offsetHeight + 18; /* 18 = gap */
-    }
-
-    function goTestiSlide(n) {
-        const total = testiTrack.children.length;
-        testiCur = Math.max(0, Math.min(n, total - 1));
-        testiTrack.style.transform = `translateY(-${testiCur * getTestiRowH()}px)`;
-        testiDots.forEach((d, i) => d.classList.toggle('on', i === testiCur));
-    }
-
-    document.getElementById('testi-up').addEventListener('click', () => goTestiSlide(testiCur - 1));
-    document.getElementById('testi-down').addEventListener('click', () => goTestiSlide(testiCur + 1));
-
-    window.addEventListener('resize', () => goTestiSlide(testiCur));
-
-    // Auto-advance testimonials
-    setInterval(() => {
-        const total = testiTrack.children.length;
-        goTestiSlide((testiCur + 1) % total);
-    }, 5500);
-
-    // Touch swipe for testimonials
-    let tTouchStart = 0;
-    document.getElementById('testi-viewport').addEventListener('touchstart', e => tTouchStart = e.touches[0].clientY, { passive: true });
-    document.getElementById('testi-viewport').addEventListener('touchend', e => {
-        const diff = tTouchStart - e.changedTouches[0].clientY;
-        if (Math.abs(diff) > 40) goTestiSlide(diff > 0 ? testiCur + 1 : testiCur - 1);
-    });
 
     /* ── SMOOTH SCROLL ── */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
