@@ -3,614 +3,771 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitMigo - Where Fitness Meets Friendship</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Swiper CDN -->
-    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/common.css">
+    <title>Fitmigo — Diet • Yoga • Workout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Playfair+Display:ital@0,1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+        :root {
+            --cream: #f0e4d3;
+            --dark: #111111;
+            --orange: #c84b0c;
+            --text: #1a1a1a;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--cream); }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 40px); max-width: 1200px;
+            background: rgba(240,228,211,0.88); backdrop-filter: blur(12px);
+            border-radius: 50px; padding: 10px 20px 10px 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            z-index: 1000; box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+            font-size: 1.25rem; color: var(--text); text-decoration: none;
+        }
+        .nav-logo-icon {
+            width: 34px; height: 34px; background: var(--dark); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 900; font-size: 0.95rem;
+        }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; }
+        .nav-cta {
+            background: var(--dark); color: #fff; padding: 10px 22px;
+            border-radius: 50px; text-decoration: none; font-size: 0.88rem; font-weight: 500;
+        }
+
+        /* ── HERO ── */
+        .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
+        .hero-left {
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 120px 60px 80px;
+        }
+        .label-tag {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--text); margin-bottom: 24px;
+        }
+        .label-tag::before {
+            content: ''; display: block; width: 40px; height: 1px; background: var(--text);
+        }
+        .hero-heading {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(4rem, 7.5vw, 7.5rem); line-height: 0.92;
+            text-transform: uppercase; color: var(--text); margin-bottom: 24px;
+        }
+        .hero-heading em {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-weight: 400; color: var(--orange); text-transform: none;
+            font-size: clamp(3.5rem, 6.5vw, 6.5rem);
+        }
+        .hero-desc { font-size: 0.93rem; color: #666; line-height: 1.65; max-width: 360px; margin-bottom: 40px; }
+        .hero-btns { display: flex; align-items: center; gap: 24px; }
+        .btn-pill {
+            background: var(--dark); color: #fff; padding: 14px 30px;
+            border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 500;
+        }
+        .btn-ghost {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text); font-size: 0.82rem;
+            font-weight: 600; letter-spacing: 0.06em;
+        }
+        .btn-ghost .circle {
+            width: 28px; height: 28px; border: 1.5px solid var(--text); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
+        }
+        .hero-right { position: relative; overflow: hidden; }
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-badge {
+            position: absolute; bottom: 28px; left: 28px;
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+            border-radius: 12px; padding: 12px 18px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .badge-grade {
+            width: 38px; height: 38px; border: 2px solid var(--orange); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--orange); font-weight: 700; font-size: 0.8rem;
+        }
+        .badge-grade sub { font-size: 0.6rem; }
+        .badge-text strong { display: block; font-size: 0.88rem; font-weight: 600; }
+        .badge-text span { font-size: 0.73rem; color: #888; }
+
+        /* ── SECTION LABEL ── */
+        .sec-label {
+            display: flex; align-items: center; gap: 12px;
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: var(--orange); font-size: 0.98rem; margin-bottom: 14px;
+        }
+        .sec-label::before {
+            content: ''; display: block; width: 30px; height: 1.5px; background: var(--orange);
+        }
+
+        /* ── WHY FITMIGO ── */
+        .why-sec { padding: 100px 0; background: var(--cream); }
+        .why-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .why-img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
+        .why-img-wrap img { width: 100%; height: 460px; object-fit: cover; display: block; }
+        .why-stats {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(18,18,18,0.82); backdrop-filter: blur(6px);
+            display: flex;
+        }
+        .w-stat {
+            flex: 1; text-align: center; color: #fff; padding: 18px 10px;
+            border-right: 1px solid rgba(255,255,255,0.12);
+        }
+        .w-stat:last-child { border-right: none; }
+        .w-stat strong {
+            display: block; font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900; font-size: 1.9rem;
+        }
+        .w-stat span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.55); }
+        .why-text h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase;
+            line-height: 1.02; color: var(--text); margin-bottom: 20px;
+        }
+        .why-text p { font-size: 0.92rem; color: #555; line-height: 1.7; margin-bottom: 28px; }
+        .why-strikes { list-style: none; margin-bottom: 24px; }
+        .why-strikes li {
+            display: flex; align-items: center; gap: 10px;
+            color: #999; font-size: 0.88rem; margin-bottom: 12px;
+            text-decoration: line-through;
+        }
+        .x-dot {
+            width: 20px; height: 20px; border: 1.5px solid #ccc; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.55rem; color: #ccc; flex-shrink: 0;
+        }
+        .why-unified {
+            background: #fff; border-radius: 12px; padding: 16px 20px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .check-circle {
+            width: 36px; height: 36px; background: var(--orange); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1rem; flex-shrink: 0;
+        }
+        .why-unified strong { display: block; font-size: 0.92rem; margin-bottom: 2px; }
+        .why-unified span { font-size: 0.78rem; color: #999; }
+
+        /* ── PROGRAMS ── */
+        .programs-sec { background: #111; padding: 80px 0 80px 60px; overflow: hidden; }
+        .programs-head {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            padding-right: 60px; margin-bottom: 44px;
+        }
+        .programs-sec .sec-label { color: var(--orange); }
+        .programs-sec .sec-label::before { background: var(--orange); }
+        .programs-sec h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: #fff; margin-top: 8px;
+        }
+        .scroll-cue {
+            display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.4);
+            font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; padding-bottom: 4px;
+        }
+        .scroll-cue::before { content: ''; width: 32px; height: 1px; background: rgba(255,255,255,0.25); }
+        .prog-cards { display: flex; gap: 18px; overflow-x: auto; padding-right: 60px; scrollbar-width: none; }
+        .prog-cards::-webkit-scrollbar { display: none; }
+        .prog-card {
+            flex-shrink: 0; width: 370px; height: 300px; border-radius: 14px;
+            overflow: hidden; position: relative; cursor: pointer;
+        }
+        .prog-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; display: block; }
+        .prog-card:hover img { transform: scale(1.06); }
+        .prog-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%); }
+        .prog-num {
+            position: absolute; top: 18px; right: 20px;
+            font-family: 'Barlow Condensed', sans-serif; font-size: 2rem;
+            font-weight: 700; color: rgba(255,255,255,0.25);
+        }
+        .prog-info { position: absolute; bottom: 24px; left: 24px; }
+        .prog-info .card-label {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: var(--orange); font-size: 0.82rem; margin-bottom: 5px;
+        }
+        .prog-info h3 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+            font-size: 1.55rem; text-transform: uppercase; color: #fff;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how-sec { padding: 100px 60px; background: var(--cream); }
+        .how-top { text-align: center; margin-bottom: 48px; }
+        .how-top .sec-label { justify-content: center; }
+        .how-top h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text);
+        }
+        .how-line { max-width: 1200px; margin: 0 auto 56px; height: 1.5px; background: var(--dark); }
+        .how-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
+        .how-item { border-bottom: 1px solid #d8cfc6; padding-bottom: 36px; }
+        .step-num {
+            width: 42px; height: 42px; border: 1.5px solid var(--text); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.78rem; font-weight: 600; margin-bottom: 20px;
+        }
+        .how-item h3 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+            font-size: 1.55rem; text-transform: uppercase; margin-bottom: 12px;
+        }
+        .how-item p { font-size: 0.88rem; color: #666; line-height: 1.72; }
+
+        /* ── RESULTS ── */
+        .results-sec { padding: 100px 60px; background: var(--cream); }
+        .results-wrap { max-width: 1200px; margin: 0 auto; }
+        .result-slide { display: none; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: center; }
+        .result-slide.active { display: grid; }
+        .result-text h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(3rem, 5vw, 4.5rem); text-transform: uppercase;
+            color: var(--text); margin: 12px 0 16px;
+        }
+        .result-text p { font-size: 0.92rem; color: #666; line-height: 1.72; }
+        .result-img { border-radius: 18px; overflow: hidden; height: 330px; }
+        .result-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .res-dots { display: flex; gap: 8px; margin-top: 44px; }
+        .rdot { width: 28px; height: 4px; background: #ccc; border-radius: 2px; cursor: pointer; transition: background 0.3s; }
+        .rdot.on { background: var(--dark); }
+
+        /* ── TRANSFORMATION BANNER ── */
+        .transform-sec { position: relative; height: 500px; overflow: hidden; }
+        .transform-sec img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .transform-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.52); }
+        .transform-body { position: absolute; bottom: 60px; left: 80px; color: #fff; }
+        .transform-body h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(3rem, 5.5vw, 5.5rem); text-transform: uppercase;
+            line-height: 1; margin: 10px 0 32px;
+        }
+        .transform-nums { display: flex; gap: 48px; }
+        .t-num strong {
+            display: block; font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900; font-size: 2.2rem;
+        }
+        .t-num span { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+
+        /* ── TESTIMONIALS ── */
+        .testi-sec { padding: 100px 60px; background: var(--cream); }
+        .testi-sec h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase;
+            color: var(--text); margin-bottom: 44px;
+        }
+        .testi-scroll { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+        .testi-scroll::-webkit-scrollbar { display: none; }
+        .testi-card { flex-shrink: 0; width: 272px; background: #fff; border-radius: 16px; padding: 26px; }
+        .stars { color: #f5a623; font-size: 1rem; margin-bottom: 14px; }
+        .testi-card p { font-size: 0.87rem; line-height: 1.62; color: var(--text); margin-bottom: 22px; }
+        .testi-author { display: flex; align-items: center; gap: 10px; }
+        .t-avatar {
+            width: 34px; height: 34px; border-radius: 50%; background: var(--cream);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.82rem; color: var(--orange);
+            border: 1px solid #e5d9c9; flex-shrink: 0;
+        }
+        .t-info strong { display: block; font-size: 0.83rem; }
+        .t-info span { font-size: 0.72rem; color: #aaa; }
+
+        /* ── PRICING ── */
+        .pricing-sec { background: #111; padding: 100px 60px; }
+        .pricing-sec .sec-label { justify-content: center; }
+        .pricing-sec h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase;
+            color: #fff; text-align: center; margin-bottom: 60px;
+        }
+        .pricing-grid { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+        .p-card { background: #1c1c1c; border-radius: 16px; padding: 40px; border: 1px solid #282828; }
+        .p-card h3 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+            font-size: 1.15rem; letter-spacing: 0.05em; color: #fff; margin-bottom: 8px;
+        }
+        .p-desc { font-size: 0.83rem; color: #666; margin-bottom: 28px; }
+        .p-price { margin-bottom: 32px; }
+        .p-price strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 3.4rem; color: #fff; }
+        .p-price span { font-size: 0.88rem; color: #666; }
+        .p-features { list-style: none; margin-bottom: 40px; }
+        .p-features li { display: flex; align-items: center; gap: 10px; font-size: 0.86rem; color: #aaa; margin-bottom: 12px; }
+        .p-features li::before { content: '✓'; color: var(--orange); font-weight: 700; }
+        .p-btn {
+            display: block; text-align: center; width: 100%; padding: 13px;
+            border: 1px solid #3a3a3a; border-radius: 8px; text-decoration: none;
+            color: #fff; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* ── CTA BANNER ── */
+        .cta-sec { position: relative; height: 440px; overflow: hidden; }
+        .cta-sec img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .cta-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.62); }
+        .cta-body {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; color: #fff;
+        }
+        .cta-body .sec-label { justify-content: center; }
+        .cta-body h2 {
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+            font-size: clamp(3rem, 6vw, 5.5rem); text-transform: uppercase;
+            line-height: 1; margin: 10px 0 32px;
+        }
+        .cta-body a {
+            display: inline-block; padding: 15px 40px; border: 2px solid #fff;
+            border-radius: 50px; color: #fff; text-decoration: none;
+            font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase;
+        }
+
+        /* ── FOOTER ── */
+        footer { background: #0a0a0a; padding: 80px 60px 36px; color: #fff; }
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.6fr;
+            gap: 60px; margin-bottom: 56px;
+        }
+        .f-brand-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+            font-size: 1.25rem; color: #fff; margin-bottom: 18px;
+        }
+        .f-logo-icon {
+            width: 34px; height: 34px; background: #1e1e1e; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.92rem;
+        }
+        .f-brand p { font-size: 0.86rem; color: var(--orange); line-height: 1.72; max-width: 270px; margin-bottom: 22px; }
+        .f-socials { display: flex; gap: 10px; }
+        .f-icon {
+            width: 34px; height: 34px; border-radius: 50%; background: #1e1e1e;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 0.75rem; text-decoration: none; font-weight: 600;
+        }
+        .f-col h4 { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; margin-bottom: 22px; }
+        .f-col ul { list-style: none; }
+        .f-col ul li { margin-bottom: 12px; }
+        .f-col ul li a { text-decoration: none; color: #777; font-size: 0.86rem; }
+        .f-contact p { font-size: 0.76rem; color: #666; margin-bottom: 3px; }
+        .f-contact strong { display: block; color: #ccc; font-size: 0.86rem; margin-bottom: 18px; font-weight: 500; }
+        .f-contact .o-link { color: var(--orange); }
+        .footer-bar {
+            max-width: 1200px; margin: 0 auto; padding-top: 22px;
+            border-top: 1px solid #1a1a1a;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-bar p { font-size: 0.8rem; color: #444; }
+        .footer-bar p span { color: var(--orange); }
+        .footer-bar-links { display: flex; gap: 22px; }
+        .footer-bar-links a { font-size: 0.8rem; color: #444; text-decoration: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-right { height: 55vw; min-height: 320px; }
+            .hero-left { padding: 110px 28px 60px; }
+            .why-inner { grid-template-columns: 1fr; padding: 0 28px; gap: 48px; }
+            .programs-sec { padding-left: 28px; }
+            .programs-head { padding-right: 28px; }
+            .prog-cards { padding-right: 28px; }
+            .prog-card { width: 280px; height: 240px; }
+            .how-sec { padding: 72px 28px; }
+            .how-grid { grid-template-columns: 1fr; }
+            .results-sec { padding: 72px 28px; }
+            .result-slide.active { grid-template-columns: 1fr; }
+            .result-img { height: 240px; }
+            .testi-sec { padding: 72px 28px; }
+            .pricing-sec { padding: 72px 28px; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
+            .transform-body { left: 28px; bottom: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            footer { padding: 60px 28px 32px; }
+            nav { width: calc(100% - 24px); padding: 10px 16px; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="images/fitmigo.jpg" alt="FitmiGo Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 10px;">
-                <!-- <span>FitmiGo</span> -->
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#unique">Why Us</a></li>
-                    <li><a href="#start">Get Started</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                </ul>
-            </nav>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Where Fitness Meets Friendship</h1>
-            <p>Join our community where wellness goals become shared journeys and every step forward is celebrated together.</p>
-            <div>
-                <a href="#start" class="btn">Get Started</a>
-                <a href="#programs" class="btn btn-outline">Our Programs</a>
-            </div>
-        </div>
-    </section>
+<!-- NAVBAR -->
+<nav>
+    <a href="#home" class="nav-logo">
+        <div class="nav-logo-icon">F</div>
+        Fitmigo
+    </a>
+    <ul class="nav-links">
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="#pricing" class="nav-cta">Get Started</a>
+</nav>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>🏃‍♂️ Who We Are</h3>
-                    <p>FitMigo is more than fitness—it's friendship, motivation, and community. We are building a space where people connect over shared wellness goals, support each other, and grow stronger together.</p>
-                    <p>Whether you're taking your first step or restarting your journey, FitMigo is your fitness family in the making.</p>
-                </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Group exercising together">
-                </div>
-            </div>
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-left">
+        <div class="label-tag">The Fitmigo Standard</div>
+        <h1 class="hero-heading">
+            TRANSFORM<br>
+            <em>your form,</em><br>
+            YOUR LIFE.
+        </h1>
+        <p class="hero-desc">An elite system merging personalized nutrition, mindful yoga, and progressive strength.</p>
+        <div class="hero-btns">
+            <a href="#pricing" class="btn-pill">Enter The Program</a>
+            <a href="#how" class="btn-ghost">
+                <span class="circle">→</span>
+                DISCOVER HOW
+            </a>
         </div>
-    </section>
-
-    <!-- Programs Section -->
-    <section class="section programs" id="programs">
-        <div class="container">
-            <div class="section-title">
-                <h2>🌱 Our Core Programs</h2>
-                <p>Tailored wellness solutions for every stage of your fitness journey</p>
-            </div>
-            <div class="programs-grid">
-                <!-- Program 1 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1453&q=80" alt="Nutrition Guidance">
-                    </div>
-                    <div class="program-content">
-                        <h3>🥗 Basic Nutrition Guidance</h3>
-                        <ul>
-                            <li>Practical tips to eat clean and smart</li>
-                            <li>Portion control, hydration, and energy-boosting habits</li>
-                            <li>Weekly advice from certified experts</li>
-                        </ul>
-                    </div>
-                </div>
-               
-                <!-- Program 2 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Personalized Nutrition">
-                    </div>
-                    <div class="program-content">
-                        <h3>🍽️ Personalized Nutrition Plans</h3>
-                        <ul>
-                            <li>Tailored meal plans based on your goals (fat loss, energy, lifestyle)</li>
-                            <li>Indian & global diet styles supported</li>
-                            <li>Direct consultation with experienced nutritionists</li>
-                        </ul>
-                    </div>
-                </div>
-               
-                <!-- Program 3 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fat Loss Program">
-                    </div>
-                    <div class="program-content">
-                        <h3>🔥 Fat Loss Programs</h3>
-                        <ul>
-                            <li>Beginner to intermediate home/workout routines</li>
-                            <li>Pair with your Migo (buddy) for motivation</li>
-                            <li>Simple tracker templates and habit logs</li>
-                        </ul>
-                    </div>
-                </div>
-               
-                <!-- Program 4 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Teen Health">
-                    </div>
-                    <div class="program-content">
-                        <h3>🧒 Teenage Health Plans</h3>
-                        <ul>
-                            <li>Fitness and food strategies for growing teens</li>
-                            <li>Focus on strength, posture, and confidence</li>
-                            <li>Parental guidance and safe, friendly routines</li>
-                        </ul>
-                    </div>
-                </div>
-               
-                <!-- Program 5 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Diabetic Wellness">
-                    </div>
-                    <div class="program-content">
-                        <h3>🩺 Diabetic Wellness Plans</h3>
-                        <ul>
-                            <li>Customized low-sugar meal formats</li>
-                            <li>Light, safe exercise recommendations</li>
-                            <li>Regular wellness check-in (manual, not digital yet)</li>
-                        </ul>
-                    </div>
-                </div>
-               
-                <!-- Program 6 -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Reflexology">
-                    </div>
-                    <div class="program-content">
-                        <h3>👣 Reflexology & Wellness</h3>
-                        <ul>
-                            <li>Weekly online sessions</li>
-                            <li>Stress, sleep, and hormonal balance support</li>
-                            <li>Available online and through video guidance</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Unique Features Section -->
-    <section class="section" id="unique">
-        <div class="container">
-            <div class="section-title">
-                <h2>🤝 What Makes FitMigo Unique?</h2>
-                <p>We're redefining fitness by putting community at the heart of wellness</p>
-            </div>
-            <div class="unique-features">
-                <!-- Feature 1 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>We're Building Communities, Not Just Workouts</h3>
-                    <p>Local WhatsApp groups, group walks, yoga mornings, and park meetups. Migo Buddies system coming soon!</p>
-                </div>
-               
-                <!-- Feature 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <h3>Grow Together</h3>
-                    <p>Every program includes group check-ins. Win challenges, share meals, track progress—together!</p>
-                </div>
-               
-                <!-- Feature 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Expert-Backed Simplicity</h3>
-                    <p>We keep fitness easy and practical. Backed by certified professionals, simplified for real life.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How to Start Section -->
-    <section class="section steps" id="start">
-        <div class="container">
-            <div class="section-title">
-                <h2>🌍 How You Can Start</h2>
-                <p>Your journey to better health begins with these simple steps</p>
-            </div>
-            <div class="steps-container">
-                <!-- Step 1 -->
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Fill the interest form</h3>
-                    <p>Complete our simple Google Form or send us an email to express your interest</p>
-                </div>
-               
-                <!-- Step 2 -->
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Free intro call</h3>
-                    <p>Schedule a no-obligation consultation call to discuss your goals</p>
-                </div>
-               
-                <!-- Step 3 -->
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Choose your goal</h3>
-                    <p>Select from fat loss, energy boost, teen health, or diabetic wellness programs</p>
-                </div>
-               
-                <!-- Step 4 -->
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Join a group</h3>
-                    <p>Become part of a local or virtual community that fits your schedule</p>
-                </div>
-               
-                <!-- Step 5 -->
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <h3>Regular follow-ups</h3>
-                    <p>Stay accountable with our structured check-ins and progress tracking</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Meet the Founder</h2>
-                <p>The vision behind FitMigo's community-first approach</p>
-            </div>
-            <div class="founder">
-                <div class="founder-image">
-                    <img src="https://i.ibb.co/jv7MYdWs/amfitmigo.jpg" alt="A. Mukherjee - Founder">
-                </div>
-                <div class="founder-info">
-                    <h3>Miss Aditi Mukherjee</h3>
-                    <h4>Certified Fitness Coach & Community Builder</h4>
-                    <p>Background & Vision: Miss Aditi Mukherjee envisioned FitMigo after seeing how support and camaraderie transformed her own fitness journey. Instead of solo workouts and quick fixes, she believes fitness thrives in friendship and shared goals.</p>
-                   
-                    <div class="credentials">
-                        <h4>Credentials & Experience:</h4>
-                        <ul>
-                            <li>Certified Nutrition Consultant</li>
-                            <li>5+ years of helping individuals find balance and well-being</li>
-                            <li>Facilitator for teens, beginners, and those managing health conditions</li>
-                        </ul>
-                    </div>
-                   
-                    <div class="quote">
-                        <p>"To bring fitness back to its roots—as a shared experience built on trust, care, and mutual encouragement."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Reviews Slider -->
-    <section class="section testimonials" id="reviews">
-  <div class="container">
-    <div class="section-title">
-      <h2>💬 What Our Clients Say</h2>
-      <p>Real stories from our fitness family</p>
     </div>
-
-    <!-- Tabs -->
-    <div class="testimonial-tabs">
-      <button class="tab-btn active" id="tab-images" onclick="showTestimonialTab('images')">Images</button>
-      <button class="tab-btn" id="tab-videos" onclick="showTestimonialTab('videos')">Videos</button>
-    </div>
-
-    <!-- Image Testimonials (Swiper) -->
-    <div id="testimonial-images">
-      <div class="swiper testimonial-swiper">
-        <div class="swiper-wrapper">
-          <!-- Slide 1 -->
-          <div class="swiper-slide testimonial-card">
-            <img class="testimonial-img" src="https://i.pravatar.cc/100?img=12" alt="Priya Sharma">
-            <p>"FitMigo changed my life. I not only lost weight but gained a support system that feels like family."</p>
-            <h4>— Pranab Pradhan</h4>
-            <span class="location">Delhi, India</span>
-          </div>
-
-          <!-- Slide 2 -->
-          <div class="swiper-slide testimonial-card">
-            <img class="testimonial-img" src="https://i.pravatar.cc/100?img=20" alt="Aarav Mehta">
-            <p>"As a teen, I felt awkward at gyms. FitMigo’s teen plan made fitness fun and safe."</p>
-            <h4>— Souryaseni</h4>
-            <span class="location">Mumbai, India</span>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="swiper-slide testimonial-card">
-            <img class="testimonial-img" src="https://i.pravatar.cc/100?img=16" alt="Suresh Kumar">
-            <p>"The diabetic plan was a game-changer. The meals and check-ins kept me on track."</p>
-            <h4>— Suresh Kumar</h4>
-            <span class="location">Hyderabad, India</span>
-          </div>
-
-          <!-- Slide 4 -->
-          <div class="swiper-slide testimonial-card">
-            <img class="testimonial-img" src="https://i.pravatar.cc/100?img=16" alt="Suresh Kumar">
-            <p>"The diabetic plan was a game-changer. The meals and check-ins kept me on track."</p>
-            <h4>— Smita</h4>
-            <span class="location">Hyderabad, India</span>
-          </div>
-
-          <!-- Slide 5 -->
-          <div class="swiper-slide testimonial-card">
-            <img class="testimonial-img" src="https://i.pravatar.cc/100?img=16" alt="Suresh Kumar">
-            <p>"The diabetic plan was a game-changer. The meals and check-ins kept me on track."</p>
-            <h4>— Suresh Kumar</h4>
-            <span class="location">Hyderabad, India</span>
-          </div>
+    <div class="hero-right">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=80" alt="Personal training session">
+        <div class="hero-badge">
+            <div class="badge-grade">A<sub>+</sub></div>
+            <div class="badge-text">
+                <strong>Top Tier</strong>
+                <span>Guided Ecosystem</span>
+            </div>
         </div>
-        <!-- Pagination Dots -->
-        <div class="swiper-pagination"></div>
-
-        <!-- Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
     </div>
-
-    <!-- Video Testimonials -->
-    <div id="testimonial-videos" style="display:none;">
-      <div class="video-grid">
-        <!-- Example video testimonial -->
-        <div class="video-card">
-          <iframe width="320" height="180" src="https://www.youtube.com/embed/VIDEO_ID1" title="Client Testimonial 1" frameborder="0" allowfullscreen></iframe>
-          <p>— Client Name, Location</p>
-        </div>
-        <!-- Add more video-card blocks as needed -->
-      </div>
-    </div>
-  </div>
 </section>
 
-<script>
-// Tab switching logic
-function showTestimonialTab(tab) {
-  document.getElementById('testimonial-images').style.display = (tab === 'images') ? 'block' : 'none';
-  document.getElementById('testimonial-videos').style.display = (tab === 'videos') ? 'block' : 'none';
-  document.getElementById('tab-images').classList.toggle('active', tab === 'images');
-  document.getElementById('tab-videos').classList.toggle('active', tab === 'videos');
-}
-</script>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-                <p>Ready to start your FitMigo journey? Reach out to us today!</p>
+<!-- WHY FITMIGO -->
+<section class="why-sec" id="why">
+    <div class="why-inner">
+        <div class="why-img-wrap">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=80" alt="Deadlift">
+            <div class="why-stats">
+                <div class="w-stat"><strong>3-in-1</strong><span>Unified System</span></div>
+                <div class="w-stat"><strong>92%</strong><span>Consistency</span></div>
+                <div class="w-stat"><strong>4.9★</strong><span>Rating</span></div>
             </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Contact Details</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <span>contact@fitmigo.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <span>fitmigolife@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <span>www.fitmigo.co.in</span>
-                        </div>
-                    </div>
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/fitmigo" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                         <a href="https://www.facebook.com/people/Fitmigo/100093347133403/?_rdr" class="social-link" target="_blank"><i class="fab fa-facebook-f" ></i></a>
-                       <!-- <a href="#" class="social-link"><i class="fab fa-twitter"></i></a> -->
-                        <a href="https://www.youtube.com/@Fitmigo" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <!-- <form>
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" placeholder="Enter your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" placeholder="Enter your email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="Enter your phone number">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" placeholder="Tell us about your fitness goals and interests"></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form> -->
-                    <form action="contact.php" method="POST" id="contactForm">
-                        <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" name="name" id="name" required placeholder="Enter your name"/>
-                        </div>
-                        <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" name="email" id="email" required placeholder="Enter your email"/>
-                        </div>
-                        <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" name="phone" id="phone" placeholder="Enter your phone number"/>
-                        </div>
-                        <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea name="message" id="message" required placeholder="Tell us about your fitness goals and interests"></textarea>
-                        </div>
-                        <div id="formMessage"></div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+        </div>
+        <div class="why-text">
+            <div class="sec-label">Why Fitmigo</div>
+            <h2>STOP JUGGLING.<br>START FLOWING.</h2>
+            <p>You don't lack discipline. You lack a system that works together — nutrition, movement, and recovery in one unified plan.</p>
+            <ul class="why-strikes">
+                <li><span class="x-dot">✕</span> Random YouTube workouts</li>
+                <li><span class="x-dot">✕</span> Conflicting diet advice</li>
+                <li><span class="x-dot">✕</span> Losing motivation by week 3</li>
+            </ul>
+            <div class="why-unified">
+                <div class="check-circle">✓</div>
+                <div>
+                    <strong>One unified ecosystem</strong>
+                    <span>Diet + Yoga + Strength + Recovery — all in sync</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <h3>FitMigo</h3>
-                    <p>Where Fitness Meets Friendship. Join our community where wellness goals become shared journeys.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#programs">Programs</a></li>
-                        <li><a href="#unique">Why Choose Us</a></li>
-                        <li><a href="#start">Get Started</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Programs</h3>
-                    <ul>
-                        <li><a href="#">Nutrition Guidance</a></li>
-                        <li><a href="#">Personalized Plans</a></li>
-                        <li><a href="#">Fat Loss Programs</a></li>
-                        <li><a href="#">Teen Health</a></li>
-                        <li><a href="#">Diabetic Wellness</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><a href="mailto:contact@fitmigo.com">Email Us</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Website</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 FitMigo. All Rights Reserved.</p>
+<!-- PROGRAMS -->
+<section class="programs-sec" id="programs">
+    <div class="programs-head">
+        <div>
+            <div class="sec-label">The Ecosystem</div>
+            <h2>COMPLETE INTEGRATION</h2>
+        </div>
+        <div class="scroll-cue">Scroll to Explore</div>
+    </div>
+    <div class="prog-cards">
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Functional Power">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">01</div>
+            <div class="prog-info">
+                <div class="card-label">Build True Strength</div>
+                <h3>FUNCTIONAL POWER</h3>
             </div>
         </div>
-    </footer>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80" alt="Yoga">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">02</div>
+            <div class="prog-info">
+                <div class="card-label">Find Your Balance</div>
+                <h3>YOGA & FLUIDITY</h3>
+            </div>
+        </div>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="Nutrition">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">03</div>
+            <div class="prog-info">
+                <div class="card-label">Fuel Your Performance</div>
+                <h3>PRECISION NUTRITION</h3>
+            </div>
+        </div>
+        <div class="prog-card">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Recovery">
+            <div class="prog-overlay"></div>
+            <div class="prog-num">04</div>
+            <div class="prog-info">
+                <div class="card-label">Restore & Rebuild</div>
+                <h3>ACTIVE RECOVERY</h3>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Swiper Script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- HOW IT WORKS -->
+<section class="how-sec" id="how">
+    <div class="how-top">
+        <div class="sec-label">The Process</div>
+        <h2>HOW IT WORKS</h2>
+    </div>
+    <div class="how-line"></div>
+    <div class="how-grid">
+        <div class="how-item">
+            <div class="step-num">01</div>
+            <h3>AUDIT</h3>
+            <p>Metabolic screening, movement assessment, and lifestyle analysis to understand exactly what we are working with.</p>
+        </div>
+        <div class="how-item">
+            <div class="step-num">02</div>
+            <h3>BLUEPRINT</h3>
+            <p>Your unified master plan — nutrition, strength, yoga, and recovery sequenced into one cohesive timeline.</p>
+        </div>
+        <div class="how-item">
+            <div class="step-num">03</div>
+            <h3>EXECUTE</h3>
+            <p>Daily guidance, form correction, habit tracking. We monitor biofeedback and adjust weekly so you just show up.</p>
+        </div>
+    </div>
+</section>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function () {
-            const navList = document.querySelector('nav ul');
-            navList.classList.toggle('active');
-        });
-       
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+<!-- RESULTS -->
+<section class="results-sec" id="results">
+    <div class="results-wrap">
+        <div class="result-slide active">
+            <div class="result-text">
+                <div class="sec-label">Sustainable Transformation</div>
+                <h2>FAT LOSS</h2>
+                <p>We measure metabolic output, not just calories. Watch the numbers drop while your energy and recovery stay elevated.</p>
+            </div>
+            <div class="result-img">
+                <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80" alt="Fat Loss">
+            </div>
+        </div>
+        <div class="result-slide">
+            <div class="result-text">
+                <div class="sec-label">Functional Power</div>
+                <h2>STRENGTH</h2>
+                <p>Build lean muscle that moves better. Gravity-based calisthenics, progressive overload, zero machines.</p>
+            </div>
+            <div class="result-img">
+                <img src="https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&q=80" alt="Strength">
+            </div>
+        </div>
+        <div class="result-slide">
+            <div class="result-text">
+                <div class="sec-label">Pain-Free Movement</div>
+                <h2>MOBILITY</h2>
+                <p>Unlock years of desk damage. Deep flows and joint mobility drills for full range of motion.</p>
+            </div>
+            <div class="result-img">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Mobility">
+            </div>
+        </div>
+        <div class="res-dots">
+            <div class="rdot on" onclick="goSlide(0)"></div>
+            <div class="rdot" onclick="goSlide(1)"></div>
+            <div class="rdot" onclick="goSlide(2)"></div>
+        </div>
+    </div>
+</section>
 
-                // Close mobile nav after clicking
-                if (window.innerWidth <= 768) {
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
+<!-- TRANSFORMATION BANNER -->
+<section class="transform-sec">
+    <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1400&q=80" alt="Transformation">
+    <div class="transform-overlay"></div>
+    <div class="transform-body">
+        <div class="sec-label">The Result</div>
+        <h2>UNCOMPROMISING<br>TRANSFORMATION</h2>
+        <div class="transform-nums">
+            <div class="t-num"><strong>92%</strong><span>Retain results 1yr+</span></div>
+            <div class="t-num"><strong>4.9/5</strong><span>Member rating</span></div>
+        </div>
+    </div>
+</section>
 
-</script>
+<!-- TESTIMONIALS -->
+<section class="testi-sec">
+    <div class="sec-label">The Proof</div>
+    <h2>REAL IMPACT.</h2>
+    <div class="testi-scroll">
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"Replaced years of random yoga and strength burnout with visible, consistent results."</p>
+            <div class="testi-author">
+                <div class="t-avatar">S</div>
+                <div class="t-info"><strong>Sarah K.</strong><span>Lifestyle Coach</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"The structured plan is intuitive, forgiving, and incredibly effective."</p>
+            <div class="testi-author">
+                <div class="t-avatar">M</div>
+                <div class="t-info"><strong>Michael T.</strong><span>Father & Entrepreneur</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"Daily mindfulness with calisthenics transformed my physique and stress."</p>
+            <div class="testi-author">
+                <div class="t-avatar">E</div>
+                <div class="t-info"><strong>Elena R.</strong><span>Former Athlete</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"I lost 8kg and finally learned how to eat without guilt."</p>
+            <div class="testi-author">
+                <div class="t-avatar">D</div>
+                <div class="t-info"><strong>David W.</strong><span>Beginner</span></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p>"The check-ins kept me on track even through the most stressful weeks."</p>
+            <div class="testi-author">
+                <div class="t-avatar">J</div>
+                <div class="t-info"><strong>Jaya M.</strong><span>Consultant</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-sec" id="pricing">
+    <div class="sec-label">The Investment</div>
+    <h2>COMMIT TO EXCELLENCE.</h2>
+    <div class="pricing-grid">
+        <div class="p-card">
+            <h3>DIGITAL ACCESS</h3>
+            <p class="p-desc">Self-guided access to the entire ecosystem.</p>
+            <div class="p-price"><strong>$49</strong><span>/mo</span></div>
+            <ul class="p-features">
+                <li>Full strength &amp; yoga library</li>
+                <li>Standard nutrition guides</li>
+                <li>Progress tracking</li>
+                <li>Community access</li>
+            </ul>
+            <a href="#" class="p-btn">SELECT PLAN</a>
+        </div>
+        <div class="p-card">
+            <h3>THE STANDARD</h3>
+            <p class="p-desc">Elite, personalized coaching and adjustments.</p>
+            <div class="p-price"><strong>$199</strong><span>/mo</span></div>
+            <ul class="p-features">
+                <li>Dedicated 1-on-1 coach</li>
+                <li>Weekly form reviews</li>
+                <li>Dynamic meal plans</li>
+                <li>Direct messaging</li>
+                <li>Priority live sessions</li>
+            </ul>
+            <a href="#" class="p-btn">SELECT PLAN</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-sec">
+    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1400&q=80" alt="Begin your evolution">
+    <div class="cta-overlay"></div>
+    <div class="cta-body">
+        <div class="sec-label">The time is now.</div>
+        <h2>BEGIN YOUR<br>EVOLUTION.</h2>
+        <a href="#pricing">START THE PROGRAM</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="f-brand">
+            <div class="f-brand-logo"><div class="f-logo-icon">F</div> Fitmigo</div>
+            <p>The unified fitness ecosystem for people who are done with half-measures. Diet. Yoga. Strength. One system.</p>
+            <div class="f-socials">
+                <a href="https://www.instagram.com/fitmigo" class="f-icon" target="_blank">I</a>
+                <a href="https://www.youtube.com/@Fitmigo" class="f-icon" target="_blank">Y</a>
+                <a href="https://www.facebook.com/people/Fitmigo/100093347133403/" class="f-icon" target="_blank">F</a>
+            </div>
+        </div>
+        <div class="f-col">
+            <h4>Programs</h4>
+            <ul>
+                <li><a href="#">Strength</a></li>
+                <li><a href="#">Yoga</a></li>
+                <li><a href="#">Nutrition</a></li>
+                <li><a href="#">Recovery</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="f-col f-contact">
+            <h4>Get In Touch</h4>
+            <p>Phone / WhatsApp</p>
+            <strong>095602 60917</strong>
+            <p>Website</p>
+            <strong><a href="#" class="o-link">fitmigo.in</a></strong>
+            <p>Location</p>
+            <strong>Greater Kailash, New Delhi</strong>
+        </div>
+    </div>
+    <div class="footer-bar">
+        <p>© 2026 Fitmigo. <span>All rights reserved.</span></p>
+        <div class="footer-bar-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Cookies</a>
+        </div>
+    </div>
+</footer>
 
 <script>
-function showPopup(message, type = "success") {
-    const popup = document.getElementById("popup");
-    const popupMessage = document.getElementById("popupMessage");
-    popup.classList.remove("hidden");
-    popup.classList.remove("success", "error");
-    popup.classList.add(type);
-    popupMessage.textContent = message;
+    let cur = 0;
+    const slides = document.querySelectorAll('.result-slide');
+    const dots = document.querySelectorAll('.rdot');
 
-    // Auto-close after 4 seconds
-    setTimeout(() => {
-        closePopup();
-    }, 4000);
-}
-
-function closePopup() {
-    document.getElementById("popup").classList.add("hidden");
-}
-
-// Form Submission Handling
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const formData = new FormData(form);
-
-    fetch("contact.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.text())
-    .then(response => {
-        const trimmed = response.trim().toLowerCase();
-        if (trimmed === "success") {
-            showPopup("✅ Your message was sent successfully!", "success");
-            form.reset();
-        } else {
-            showPopup("❌ Your message was not sent successfully!" + response, "error");
-        }
-    })
-    .catch(() => {
-        showPopup("❌ Network error. Please try again later.", "error");
-    });
-});
-</script>
-
-<script>
-  const swiper = new Swiper('.testimonial-swiper', {
-    loop: true,
-    autoplay: {
-      delay: 44000,
-      disableOnInteraction: false,
-    },
-    speed: 700,
-    spaceBetween: 30,
-    centeredSlides: true,
-    grabCursor: true,
-    slidesPerView: 1.2,
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-      1400: { slidesPerView: 3.5 }
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+    function goSlide(n) {
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('on');
+        cur = n;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('on');
     }
-  });
+
+    setInterval(() => goSlide((cur + 1) % slides.length), 5000);
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
 </script>
-
-
-
-
-<!-- Popup Notification -->
-<div id="popup" class="popup hidden">
-  <div class="popup-content" id="popupContent">
-    <span class="close-btn" onclick="closePopup()">&times;</span>
-    <p id="popupMessage"></p>
-  </div>
-</div>
-
-
 </body>
 </html>
