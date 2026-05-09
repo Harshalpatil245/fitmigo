@@ -298,6 +298,103 @@
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bar { flex-direction: column; gap: 12px; text-align: center; }
         }
+
+        /* ── FLOATING ENQUIRY BUTTON ── */
+        .float-enquiry {
+            position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+            background: var(--orange); color: #fff;
+            border: none; cursor: pointer;
+            padding: 14px 24px; border-radius: 50px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem; font-weight: 700; letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 6px 24px rgba(200,75,12,0.45);
+            display: flex; align-items: center; gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .float-enquiry:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(200,75,12,0.55); }
+        .float-enquiry svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* ── ENQUIRY MODAL ── */
+        .enq-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9500;
+            background: rgba(17,17,17,0.7); backdrop-filter: blur(6px);
+            overflow-y: auto; padding: 20px;
+        }
+        .enq-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+        .enq-modal {
+            background: #fff; border-radius: 20px;
+            width: 100%; max-width: 760px; margin: auto;
+            padding: 40px 44px; position: relative;
+        }
+        .enq-close {
+            position: absolute; top: 18px; right: 22px;
+            background: none; border: none; cursor: pointer;
+            font-size: 1.5rem; color: #555; line-height: 1;
+        }
+        .enq-close:hover { color: var(--orange); }
+        .enq-modal h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem; font-weight: 800; letter-spacing: 0.04em;
+            text-transform: uppercase; color: var(--dark); margin-bottom: 4px;
+        }
+        .enq-modal .enq-sub {
+            font-size: 0.88rem; color: #888; margin-bottom: 28px;
+        }
+        .enq-section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--orange);
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 4px; margin: 28px 0 16px;
+        }
+        .enq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+        .enq-grid.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+        .enq-grid.cols1 { grid-template-columns: 1fr; }
+        .enq-field { display: flex; flex-direction: column; gap: 5px; }
+        .enq-field.full { grid-column: 1 / -1; }
+        .enq-field label { font-size: 0.8rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.04em; }
+        .enq-field input,
+        .enq-field select,
+        .enq-field textarea {
+            border: 1.5px solid #ddd; border-radius: 8px;
+            padding: 10px 12px; font-size: 0.9rem; font-family: 'Inter', sans-serif;
+            color: var(--text); background: #fafafa;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+        .enq-field input:focus,
+        .enq-field select:focus,
+        .enq-field textarea:focus { outline: none; border-color: var(--orange); background: #fff; }
+        .enq-field textarea { resize: vertical; min-height: 80px; }
+        .enq-check-group { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+        .enq-check-group label {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.88rem; color: var(--text); cursor: pointer;
+            text-transform: none; letter-spacing: 0; font-weight: 400;
+        }
+        .enq-check-group input[type="checkbox"],
+        .enq-check-group input[type="radio"] { accent-color: var(--orange); width: 15px; height: 15px; cursor: pointer; }
+        .enq-submit {
+            margin-top: 32px; width: 100%;
+            background: var(--orange); color: #fff; border: none;
+            padding: 15px; border-radius: 50px; cursor: pointer;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .enq-submit:hover { background: #a83a08; transform: translateY(-2px); }
+        .enq-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .enq-msg { margin-top: 14px; text-align: center; font-size: 0.9rem; font-weight: 600; }
+        .enq-msg.success { color: #2a9d5c; }
+        .enq-msg.error { color: #c84b0c; }
+        @media (max-width: 600px) {
+            .enq-modal { padding: 28px 20px; }
+            .enq-grid { grid-template-columns: 1fr; }
+            .enq-grid.cols3 { grid-template-columns: 1fr 1fr; }
+            .float-enquiry { bottom: 18px; right: 16px; padding: 12px 18px; font-size: 0.88rem; }
+        }
     </style>
 </head>
 <body>
@@ -676,6 +773,319 @@
     </div>
 </footer>
 
+<!-- FLOATING ENQUIRY BUTTON -->
+<button class="float-enquiry" id="openEnquiry" aria-label="Open Enquiry Form">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    Enquire Now
+</button>
+
+<!-- ENQUIRY MODAL -->
+<div class="enq-overlay" id="enqOverlay" role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+    <div class="enq-modal">
+        <button class="enq-close" id="closeEnquiry" aria-label="Close">&times;</button>
+        <h2 id="enqTitle">Health &amp; Diet Enquiry</h2>
+        <p class="enq-sub">Fill in your details and our team will get back to you shortly.</p>
+
+        <form id="enqForm" action="enquiry.php" method="POST">
+
+            <!-- 1. PERSONAL INFORMATION -->
+            <div class="enq-section-title">1. Personal Information</div>
+            <div class="enq-grid">
+                <div class="enq-field">
+                    <label for="eq_name">Full Name *</label>
+                    <input type="text" id="eq_name" name="full_name" required placeholder="Your full name">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_age">Age *</label>
+                    <input type="number" id="eq_age" name="age" required min="10" max="100" placeholder="e.g. 28">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_gender">Gender</label>
+                    <select id="eq_gender" name="gender">
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_phone">Contact Number *</label>
+                    <input type="tel" id="eq_phone" name="phone" required placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_email">Email ID *</label>
+                    <input type="email" id="eq_email" name="email" required placeholder="you@email.com">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_address">Address</label>
+                    <input type="text" id="eq_address" name="address" placeholder="City / Area">
+                </div>
+            </div>
+
+            <!-- 2. PHYSICAL DETAILS -->
+            <div class="enq-section-title">2. Physical Details</div>
+            <div class="enq-grid cols3">
+                <div class="enq-field">
+                    <label for="eq_height">Height (cm)</label>
+                    <input type="number" id="eq_height" name="height_cm" placeholder="e.g. 165">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_weight">Weight (kg)</label>
+                    <input type="number" id="eq_weight" name="weight_kg" placeholder="e.g. 72">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_bmi">BMI (if known)</label>
+                    <input type="text" id="eq_bmi" name="bmi" placeholder="e.g. 24.5">
+                </div>
+            </div>
+            <div class="enq-field" style="margin-top:14px;">
+                <label>Body Type</label>
+                <div class="enq-check-group">
+                    <label><input type="radio" name="body_type" value="Slim"> Slim</label>
+                    <label><input type="radio" name="body_type" value="Normal"> Normal</label>
+                    <label><input type="radio" name="body_type" value="Overweight"> Overweight</label>
+                    <label><input type="radio" name="body_type" value="Obese"> Obese</label>
+                </div>
+            </div>
+
+            <!-- 3. HEALTH INFORMATION -->
+            <div class="enq-section-title">3. Health Information</div>
+            <div class="enq-field">
+                <label>Medical Conditions (select all that apply)</label>
+                <div class="enq-check-group">
+                    <label><input type="checkbox" name="medical[]" value="Diabetes"> Diabetes</label>
+                    <label><input type="checkbox" name="medical[]" value="Thyroid"> Thyroid</label>
+                    <label><input type="checkbox" name="medical[]" value="PCOS"> PCOS</label>
+                    <label><input type="checkbox" name="medical[]" value="BP"> High / Low BP</label>
+                    <label><input type="checkbox" name="medical[]" value="Heart Issue"> Heart Issue</label>
+                    <label><input type="checkbox" name="medical[]" value="None"> None</label>
+                    <label><input type="checkbox" name="medical[]" value="Others"> Others</label>
+                </div>
+            </div>
+            <div class="enq-grid" style="margin-top:14px;">
+                <div class="enq-field">
+                    <label for="eq_meds">Current Medications</label>
+                    <input type="text" id="eq_meds" name="medications" placeholder="List any medications">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_allergy">Allergies</label>
+                    <input type="text" id="eq_allergy" name="allergies" placeholder="Food / drug allergies">
+                </div>
+                <div class="enq-field full">
+                    <label for="eq_digestion">Digestive Issues</label>
+                    <input type="text" id="eq_digestion" name="digestive_issues" placeholder="e.g. IBS, acidity, constipation, none">
+                </div>
+            </div>
+
+            <!-- 4. LIFESTYLE DETAILS -->
+            <div class="enq-section-title">4. Lifestyle Details</div>
+            <div class="enq-grid">
+                <div class="enq-field">
+                    <label for="eq_occupation">Occupation</label>
+                    <input type="text" id="eq_occupation" name="occupation" placeholder="e.g. Software Engineer">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_worktype">Work Type</label>
+                    <select id="eq_worktype" name="work_type">
+                        <option value="">Select</option>
+                        <option>Sedentary (desk job)</option>
+                        <option>Moderately Active</option>
+                        <option>Physically Active</option>
+                        <option>Field / Labour Work</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_sleep">Sleep Duration</label>
+                    <select id="eq_sleep" name="sleep_duration">
+                        <option value="">Select</option>
+                        <option>Less than 5 hrs</option>
+                        <option>5–6 hrs</option>
+                        <option>6–7 hrs</option>
+                        <option>7–8 hrs</option>
+                        <option>More than 8 hrs</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_stress">Stress Level</label>
+                    <select id="eq_stress" name="stress_level">
+                        <option value="">Select</option>
+                        <option>Low</option>
+                        <option>Moderate</option>
+                        <option>High</option>
+                        <option>Very High</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 5. FOOD HABITS -->
+            <div class="enq-section-title">5. Food Habits</div>
+            <div class="enq-grid">
+                <div class="enq-field">
+                    <label for="eq_foodpref">Food Preference</label>
+                    <select id="eq_foodpref" name="food_preference">
+                        <option value="">Select</option>
+                        <option>Vegetarian</option>
+                        <option>Non-Vegetarian</option>
+                        <option>Vegan</option>
+                        <option>Eggetarian</option>
+                        <option>Jain</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_meals">Meals per Day</label>
+                    <select id="eq_meals" name="meals_per_day">
+                        <option value="">Select</option>
+                        <option>1–2</option>
+                        <option>3</option>
+                        <option>4–5</option>
+                        <option>6+</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_water">Water Intake</label>
+                    <select id="eq_water" name="water_intake">
+                        <option value="">Select</option>
+                        <option>Less than 1 L</option>
+                        <option>1–2 L</option>
+                        <option>2–3 L</option>
+                        <option>More than 3 L</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_outside">Eating Outside</label>
+                    <select id="eq_outside" name="eating_outside">
+                        <option value="">Select</option>
+                        <option>Never</option>
+                        <option>Rarely</option>
+                        <option>1–2 times/week</option>
+                        <option>3–4 times/week</option>
+                        <option>Daily</option>
+                    </select>
+                </div>
+                <div class="enq-field full">
+                    <label for="eq_cravings">Cravings / Food Dislikes</label>
+                    <input type="text" id="eq_cravings" name="cravings" placeholder="e.g. sweets, fried food, dairy, etc.">
+                </div>
+            </div>
+
+            <!-- 6. FITNESS & ACTIVITY -->
+            <div class="enq-section-title">6. Fitness &amp; Activity</div>
+            <div class="enq-grid">
+                <div class="enq-field">
+                    <label for="eq_exercise">Exercise Routine</label>
+                    <select id="eq_exercise" name="exercise_routine">
+                        <option value="">Select</option>
+                        <option>No Exercise</option>
+                        <option>Occasional</option>
+                        <option>3–4 times/week</option>
+                        <option>5–6 times/week</option>
+                        <option>Daily</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_extype">Type of Exercise</label>
+                    <input type="text" id="eq_extype" name="exercise_type" placeholder="e.g. gym, yoga, running">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_exdur">Exercise Duration</label>
+                    <select id="eq_exdur" name="exercise_duration">
+                        <option value="">Select</option>
+                        <option>Less than 30 min</option>
+                        <option>30–45 min</option>
+                        <option>45–60 min</option>
+                        <option>More than 60 min</option>
+                    </select>
+                </div>
+                <div class="enq-field">
+                    <label for="eq_activity">Physical Activity Level</label>
+                    <select id="eq_activity" name="activity_level">
+                        <option value="">Select</option>
+                        <option>Sedentary</option>
+                        <option>Lightly Active</option>
+                        <option>Moderately Active</option>
+                        <option>Very Active</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 7. GOALS -->
+            <div class="enq-section-title">7. Your Goals</div>
+            <div class="enq-field">
+                <label>Primary Goal (select all that apply)</label>
+                <div class="enq-check-group">
+                    <label><input type="checkbox" name="goals[]" value="Weight Loss"> Weight Loss</label>
+                    <label><input type="checkbox" name="goals[]" value="Weight Gain"> Weight Gain</label>
+                    <label><input type="checkbox" name="goals[]" value="Muscle Gain"> Muscle Gain</label>
+                    <label><input type="checkbox" name="goals[]" value="General Fitness"> General Fitness</label>
+                    <label><input type="checkbox" name="goals[]" value="Medical Diet"> Medical Diet</label>
+                </div>
+            </div>
+            <div class="enq-grid" style="margin-top:14px;">
+                <div class="enq-field">
+                    <label for="eq_targetwt">Target Weight (kg)</label>
+                    <input type="number" id="eq_targetwt" name="target_weight" placeholder="e.g. 65">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_goaldur">Time Duration for Goal</label>
+                    <select id="eq_goaldur" name="goal_duration">
+                        <option value="">Select</option>
+                        <option>1 month</option>
+                        <option>3 months</option>
+                        <option>6 months</option>
+                        <option>1 year</option>
+                        <option>More than 1 year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 8. PREVIOUS DIET HISTORY -->
+            <div class="enq-section-title">8. Previous Diet History</div>
+            <div class="enq-field">
+                <label>Followed a diet plan before?</label>
+                <div class="enq-check-group">
+                    <label><input type="radio" name="prev_diet" value="Yes"> Yes</label>
+                    <label><input type="radio" name="prev_diet" value="No"> No</label>
+                </div>
+            </div>
+            <div class="enq-field" style="margin-top:12px;">
+                <label for="eq_dietdetails">If yes, please provide details</label>
+                <textarea id="eq_dietdetails" name="diet_history_details" placeholder="Type of diet, duration, results, reason for stopping…"></textarea>
+            </div>
+
+            <!-- 9. ADDITIONAL NOTES -->
+            <div class="enq-section-title">9. Additional Notes</div>
+            <div class="enq-field">
+                <label for="eq_notes">Anything else you'd like us to know?</label>
+                <textarea id="eq_notes" name="additional_notes" placeholder="Any other health details, preferences, or questions…"></textarea>
+            </div>
+
+            <!-- 10. DECLARATION -->
+            <div class="enq-section-title">10. Declaration</div>
+            <div class="enq-grid">
+                <div class="enq-field">
+                    <label for="eq_sign">Name / Signature</label>
+                    <input type="text" id="eq_sign" name="signature" placeholder="Type your full name as signature">
+                </div>
+                <div class="enq-field">
+                    <label for="eq_date">Date</label>
+                    <input type="date" id="eq_date" name="declaration_date">
+                </div>
+            </div>
+            <div class="enq-field" style="margin-top:14px;">
+                <label style="display:flex;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-weight:400;font-size:0.85rem;cursor:pointer;">
+                    <input type="checkbox" name="declaration_agree" required style="margin-top:3px;accent-color:var(--orange);">
+                    I confirm that the information provided above is accurate and I consent to Fitmigo contacting me regarding health &amp; diet coaching.
+                </label>
+            </div>
+
+            <button type="submit" class="enq-submit" id="enqSubmitBtn">Submit Enquiry</button>
+            <div class="enq-msg" id="enqMsg"></div>
+        </form>
+    </div>
+</div>
+
 <script>
     /* ── PROGRAMS: drag-to-scroll + auto-scroll ── */
     const progCards = document.getElementById('prog-cards');
@@ -720,6 +1130,56 @@
             const t = document.querySelector(a.getAttribute('href'));
             if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
         });
+    });
+
+    /* ── ENQUIRY MODAL ── */
+    const enqOverlay = document.getElementById('enqOverlay');
+    const openBtn    = document.getElementById('openEnquiry');
+    const closeBtn   = document.getElementById('closeEnquiry');
+    const enqForm    = document.getElementById('enqForm');
+    const enqMsg     = document.getElementById('enqMsg');
+    const submitBtn  = document.getElementById('enqSubmitBtn');
+
+    function openModal() {
+        enqOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        enqOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    enqOverlay.addEventListener('click', e => { if (e.target === enqOverlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    enqForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        enqMsg.textContent = '';
+        enqMsg.className = 'enq-msg';
+
+        try {
+            const data = new FormData(enqForm);
+            const res  = await fetch('enquiry.php', { method: 'POST', body: data });
+            const text = await res.text();
+            if (text.trim() === 'success') {
+                enqMsg.textContent = 'Thank you! We\'ll be in touch shortly.';
+                enqMsg.classList.add('success');
+                enqForm.reset();
+            } else {
+                enqMsg.textContent = text || 'Something went wrong. Please try again.';
+                enqMsg.classList.add('error');
+            }
+        } catch (err) {
+            enqMsg.textContent = 'Network error. Please try again.';
+            enqMsg.classList.add('error');
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Enquiry';
     });
 </script>
 </body>
