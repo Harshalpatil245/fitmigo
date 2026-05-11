@@ -220,20 +220,7 @@
         .t-info strong { display: block; font-size: 0.83rem; }
         .t-info span { font-size: 0.72rem; color: #aaa; }
 
-        /* ── REAL IMPACT — CLIENT STORIES ── */
-        .impact-sec { padding: 100px 60px; background: #fff; }
-        .impact-sec .sec-label { margin-bottom: 10px; }
-        .impact-sec h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text); margin-bottom: 44px; }
-        .impact-scroll { display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; cursor: grab; }
-        .impact-scroll::-webkit-scrollbar { display: none; }
-        .impact-scroll.dragging { cursor: grabbing; }
-        .impact-card { flex-shrink: 0; width: 300px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
-        .impact-card img { width: 100%; height: 230px; object-fit: cover; display: block; }
-        .impact-card-info { background: #5c2105; padding: 18px 16px 12px; }
-        .impact-card-info .ic-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.08rem; color: #fff; text-transform: uppercase; line-height: 1.3; }
-        .impact-card-info .ic-problem { font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; color: rgba(255,255,255,0.88); margin-top: 5px; text-transform: uppercase; font-weight: 700; line-height: 1.35; }
-        .impact-card-cure { background: #fff; border: 2px solid #5c2105; padding: 11px 14px; text-align: center; }
-        .impact-card-cure span { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.9rem; color: #5c2105; text-transform: uppercase; letter-spacing: 0.3px; }
+        .t-avatar-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; object-position: top center; flex-shrink: 0; }
 
         /* ── PRODUCTS ── */
         .products-sec { padding: 100px 60px; background: var(--cream); }
@@ -309,7 +296,6 @@
             .result-slide.active { grid-template-columns: 1fr; }
             .result-img { height: 240px; }
             .testi-sec { padding: 72px 28px; }
-            .impact-sec { padding: 72px 28px; }
             .products-sec { padding: 72px 28px; }
             .prod-card { width: 280px; }
             .pricing-sec { padding: 72px 28px; }
@@ -669,38 +655,6 @@
     </div>
 </section>
 
-<!-- REAL IMPACT — CLIENT STORIES -->
-<section class="impact-sec" id="impact">
-    <div class="sec-label">Real Results</div>
-    <h2>REAL IMPACT.</h2>
-    <div class="impact-scroll" id="impact-scroll">
-        <div class="impact-card">
-            <img src="images/Client_review-1.jpeg" alt="Souryaseni">
-            <div class="impact-card-info">
-                <div class="ic-name">Name: Souryaseni &nbsp;|&nbsp; Age: 6 Yrs</div>
-                <div class="ic-problem">Problem: Low Appetizer</div>
-            </div>
-            <div class="impact-card-cure"><span>Cure by Fitmigo with Best Child Diet</span></div>
-        </div>
-        <div class="impact-card">
-            <img src="images/Client_review-2.jpeg" alt="Pranab Pradhan">
-            <div class="impact-card-info">
-                <div class="ic-name">Name: Pranab Pradhan &nbsp;|&nbsp; Age: 15 Yrs</div>
-                <div class="ic-problem">Problem: Under Weight due to Insufficient Protein</div>
-            </div>
-            <div class="impact-card-cure"><span>Cured by Fitmigo's Best Nutritionist</span></div>
-        </div>
-        <div class="impact-card">
-            <img src="images/Client_review-3.jpeg" alt="Smitha">
-            <div class="impact-card-info">
-                <div class="ic-name">Name: Smitha</div>
-                <div class="ic-problem">Recovering from Calcium Deficiency, Under Weight</div>
-            </div>
-            <div class="impact-card-cure"><span>Recovering Through Fitmigo</span></div>
-        </div>
-    </div>
-</section>
-
 <!-- TESTIMONIALS — HORIZONTAL SCROLL -->
 <section class="testi-sec">
     <div class="sec-label">The Proof</div>
@@ -738,6 +692,21 @@
                 <p>"Best investment I've made. My energy levels are completely different now."</p>
                 <div class="testi-author"><div class="t-avatar">R</div><div class="t-info"><strong>Rahul S.</strong><span>Software Engineer</span></div></div>
             </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"My daughter had very poor appetite since she was little. Fitmigo's child diet plan was a complete game-changer — she now eats happily and is full of energy!"</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-1.jpeg" alt="Souryaseni"><div class="t-info"><strong>Souryaseni's Parent</strong><span>Child Nutrition · Age 6</span></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"Pranab was severely underweight due to insufficient protein. Fitmigo's nutritionist built the perfect plan and the transformation has been incredible!"</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-2.jpeg" alt="Pranab Pradhan"><div class="t-info"><strong>Pranab Pradhan</strong><span>Under Weight · Age 15</span></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"Dealing with calcium deficiency and being underweight was exhausting. Fitmigo gave me the right plan and I am finally recovering and feeling strong again."</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-3.jpeg" alt="Smitha"><div class="t-info"><strong>Smitha</strong><span>Calcium Deficiency Recovery</span></div></div>
+            </div>
             <!-- SET 2 (duplicate for seamless loop) -->
             <div class="testi-card">
                 <div class="stars">★★★★★</div>
@@ -768,6 +737,21 @@
                 <div class="stars">★★★★★</div>
                 <p>"Best investment I've made. My energy levels are completely different now."</p>
                 <div class="testi-author"><div class="t-avatar">R</div><div class="t-info"><strong>Rahul S.</strong><span>Software Engineer</span></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"My daughter had very poor appetite since she was little. Fitmigo's child diet plan was a complete game-changer — she now eats happily and is full of energy!"</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-1.jpeg" alt="Souryaseni"><div class="t-info"><strong>Souryaseni's Parent</strong><span>Child Nutrition · Age 6</span></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"Pranab was severely underweight due to insufficient protein. Fitmigo's nutritionist built the perfect plan and the transformation has been incredible!"</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-2.jpeg" alt="Pranab Pradhan"><div class="t-info"><strong>Pranab Pradhan</strong><span>Under Weight · Age 15</span></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="stars">★★★★★</div>
+                <p>"Dealing with calcium deficiency and being underweight was exhausting. Fitmigo gave me the right plan and I am finally recovering and feeling strong again."</p>
+                <div class="testi-author"><img class="t-avatar-img" src="images/Client_review-3.jpeg" alt="Smitha"><div class="t-info"><strong>Smitha</strong><span>Calcium Deficiency Recovery</span></div></div>
             </div>
         </div>
     </div>
@@ -1219,16 +1203,6 @@
         }
         requestAnimationFrame(autoScrollProgs);
     })();
-
-    /* ── IMPACT: drag-to-scroll ── */
-    const impactScroll = document.getElementById('impact-scroll');
-    let id = false, iStartX, iScrollLeft;
-    impactScroll.addEventListener('mousedown', e => { id = true; impactScroll.classList.add('dragging'); iStartX = e.pageX - impactScroll.offsetLeft; iScrollLeft = impactScroll.scrollLeft; });
-    impactScroll.addEventListener('mouseleave', () => { id = false; impactScroll.classList.remove('dragging'); });
-    impactScroll.addEventListener('mouseup', () => { id = false; impactScroll.classList.remove('dragging'); });
-    impactScroll.addEventListener('mousemove', e => { if (!id) return; e.preventDefault(); impactScroll.scrollLeft = iScrollLeft - (e.pageX - impactScroll.offsetLeft - iStartX); });
-    impactScroll.addEventListener('touchstart', e => { iStartX = e.touches[0].pageX; iScrollLeft = impactScroll.scrollLeft; }, { passive: true });
-    impactScroll.addEventListener('touchmove', e => { impactScroll.scrollLeft = iScrollLeft - (e.touches[0].pageX - iStartX); }, { passive: true });
 
     /* ── NAVBAR SCROLL ── */
     const navbar = document.querySelector('nav');
