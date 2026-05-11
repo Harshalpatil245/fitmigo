@@ -239,10 +239,10 @@
         .products-sec { padding: 100px 60px; background: var(--cream); }
         .products-sec .sec-label { margin-bottom: 10px; }
         .products-sec h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.4rem); text-transform: uppercase; color: var(--text); margin-bottom: 44px; }
-        .prod-scroll { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; cursor: grab; }
-        .prod-scroll::-webkit-scrollbar { display: none; }
-        .prod-scroll.dragging { cursor: grabbing; }
-        .prod-card { flex-shrink: 0; width: 340px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 28px rgba(0,0,0,0.13); transition: transform 0.25s; }
+        .prod-track-wrap { overflow: hidden; }
+        .prod-scroll { display: flex; gap: 22px; width: max-content; animation: marqueeX 22s linear infinite; cursor: pointer; }
+        .prod-scroll:hover { animation-play-state: paused; }
+        .prod-card { flex-shrink: 0; width: 300px; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 28px rgba(0,0,0,0.13); transition: transform 0.25s; }
         .prod-card:hover { transform: translateY(-4px); }
         .prod-card img { width: 100%; height: auto; display: block; }
 
@@ -777,18 +777,18 @@
 <section class="products-sec" id="products">
     <div class="sec-label">Nutrition &amp; Wellness</div>
     <h2>OUR PRODUCTS.</h2>
-    <div class="prod-scroll" id="prod-scroll">
-        <div class="prod-card">
-            <img src="images/product-1.jpeg" alt="FitmiGo Protein Powder Vanilla">
-        </div>
-        <div class="prod-card">
-            <img src="images/product-2.jpeg" alt="FitmiGo Senior &amp; Old Age Care">
-        </div>
-        <div class="prod-card">
-            <img src="images/product-3.jpeg" alt="FitmiGo Multigrain &amp; Seed Biscuits">
-        </div>
-        <div class="prod-card">
-            <img src="images/product-4.jpeg" alt="FitmiGo Chocolate Fusion Protein">
+    <div class="prod-track-wrap">
+        <div class="prod-scroll" id="prod-scroll">
+            <!-- SET 1 -->
+            <div class="prod-card"><img src="images/product-1.jpeg" alt="FitmiGo Protein Powder Vanilla"></div>
+            <div class="prod-card"><img src="images/product-2.jpeg" alt="FitmiGo Senior &amp; Old Age Care"></div>
+            <div class="prod-card"><img src="images/product-3.jpeg" alt="FitmiGo Multigrain &amp; Seed Biscuits"></div>
+            <div class="prod-card"><img src="images/product-4.jpeg" alt="FitmiGo Chocolate Fusion Protein"></div>
+            <!-- SET 2 (duplicate for seamless loop) -->
+            <div class="prod-card"><img src="images/product-1.jpeg" alt="FitmiGo Protein Powder Vanilla"></div>
+            <div class="prod-card"><img src="images/product-2.jpeg" alt="FitmiGo Senior &amp; Old Age Care"></div>
+            <div class="prod-card"><img src="images/product-3.jpeg" alt="FitmiGo Multigrain &amp; Seed Biscuits"></div>
+            <div class="prod-card"><img src="images/product-4.jpeg" alt="FitmiGo Chocolate Fusion Protein"></div>
         </div>
     </div>
 </section>
@@ -1219,16 +1219,6 @@
         }
         requestAnimationFrame(autoScrollProgs);
     })();
-
-    /* ── PRODUCTS: drag-to-scroll ── */
-    const prodScroll = document.getElementById('prod-scroll');
-    let pd2 = false, p2StartX, p2ScrollLeft;
-    prodScroll.addEventListener('mousedown', e => { pd2 = true; prodScroll.classList.add('dragging'); p2StartX = e.pageX - prodScroll.offsetLeft; p2ScrollLeft = prodScroll.scrollLeft; });
-    prodScroll.addEventListener('mouseleave', () => { pd2 = false; prodScroll.classList.remove('dragging'); });
-    prodScroll.addEventListener('mouseup', () => { pd2 = false; prodScroll.classList.remove('dragging'); });
-    prodScroll.addEventListener('mousemove', e => { if (!pd2) return; e.preventDefault(); prodScroll.scrollLeft = p2ScrollLeft - (e.pageX - prodScroll.offsetLeft - p2StartX); });
-    prodScroll.addEventListener('touchstart', e => { p2StartX = e.touches[0].pageX; p2ScrollLeft = prodScroll.scrollLeft; }, { passive: true });
-    prodScroll.addEventListener('touchmove', e => { prodScroll.scrollLeft = p2ScrollLeft - (e.touches[0].pageX - p2StartX); }, { passive: true });
 
     /* ── IMPACT: drag-to-scroll ── */
     const impactScroll = document.getElementById('impact-scroll');
