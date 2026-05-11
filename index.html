@@ -427,6 +427,7 @@
             .float-enquiry { bottom: 18px; right: 16px; }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1188,6 +1189,12 @@
     enqOverlay.addEventListener('click', e => { if (e.target === enqOverlay) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+    // ── EmailJS config ── replace these three values with your own
+    const EJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+    const EJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+    const EJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    emailjs.init(EJS_PUBLIC_KEY);
+
     enqForm.addEventListener('submit', async e => {
         e.preventDefault();
         submitBtn.disabled = true;
@@ -1196,19 +1203,12 @@
         enqMsg.className = 'enq-msg';
 
         try {
-            const data = new FormData(enqForm);
-            const res  = await fetch('enquiry.php', { method: 'POST', body: data });
-            const text = await res.text();
-            if (text.trim() === 'success') {
-                enqMsg.textContent = 'Thank you! We\'ll be in touch shortly.';
-                enqMsg.classList.add('success');
-                enqForm.reset();
-            } else {
-                enqMsg.textContent = text || 'Something went wrong. Please try again.';
-                enqMsg.classList.add('error');
-            }
+            await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, enqForm);
+            enqMsg.textContent = 'Thank you! We\'ll be in touch shortly.';
+            enqMsg.classList.add('success');
+            enqForm.reset();
         } catch (err) {
-            enqMsg.textContent = 'Network error. Please try again.';
+            enqMsg.textContent = 'Failed to send. Please try again.';
             enqMsg.classList.add('error');
         }
 
