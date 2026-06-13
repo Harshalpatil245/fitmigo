@@ -455,6 +455,7 @@ footer { background: #0a0a0a; padding: 80px 60px 36px; color: #fff; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .nav-hamburger { display: flex; }
+    .nav-logo-img { height: 32px; }
 
     /* Hero */
     .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -517,6 +518,11 @@ footer { background: #0a0a0a; padding: 80px 60px 36px; color: #fff; }
 
 /* Mobile */
 @media (max-width: 600px) {
+    /* Nav logo */
+    .nav-logo-img { height: 28px; }
+    .mobile-menu-logo { height: 44px; }
+    .footer-logo-img { height: 40px; }
+
     /* Hero */
     .hero-left { padding: 90px 20px 40px; }
     .hero-heading { font-size: clamp(2.2rem, 9vw, 3rem); }
