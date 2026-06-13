@@ -936,16 +936,20 @@
 
         try {
             await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, enqForm);
-            enqMsg.textContent = 'Thank you! We\'ll be in touch shortly.';
-            enqMsg.classList.add('success');
             enqForm.reset();
+            document.querySelector('.enq-modal-body').innerHTML = `
+                <div class="enq-success-screen">
+                    <div class="enq-success-icon">✓</div>
+                    <h3>Enquiry Submitted!</h3>
+                    <p>Thank you! Our team will review your details and get back to you shortly.</p>
+                    <button onclick="closeModal()">Close</button>
+                </div>`;
         } catch (err) {
             enqMsg.textContent = 'Failed to send. Please try again.';
             enqMsg.classList.add('error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Enquiry';
         }
-
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Enquiry';
     });
 
     /* ── MOBILE MENU ── */
