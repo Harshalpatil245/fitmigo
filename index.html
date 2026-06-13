@@ -32,7 +32,24 @@
         <li><a href="#results">Results</a></li>
     </ul>
     <a href="#meet-founder" class="nav-cta">Meet the Founder</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+    <ul>
+        <li><a href="#founder">About Us</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#products">Product</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#meet-founder">Meet the Founder</a></li>
+    </ul>
+</div>
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -928,6 +945,28 @@
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Enquiry';
     });
+
+    /* ── MOBILE MENU ── */
+    const hamburger      = document.getElementById('navHamburger');
+    const mobileMenu     = document.getElementById('mobileMenu');
+    const mobileOverlay  = document.getElementById('mobileMenuOverlay');
+    const mobileClose    = document.getElementById('mobileMenuClose');
+
+    function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openMobileMenu);
+    mobileClose.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
 
     /* ── YOGA DAY SPLASH ── */
     (function() {
