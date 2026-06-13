@@ -1,3 +1,35 @@
+/* ── YOGA DAY SPLASH ── */
+.yoga-splash {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    animation: splashIn 0.4s ease forwards;
+}
+.yoga-splash img {
+    width: 100%; height: 100%; object-fit: contain; object-position: center;
+    max-width: 520px;
+}
+.yoga-splash-close {
+    position: absolute; top: 18px; right: 18px;
+    background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; font-size: 1.1rem; width: 36px; height: 36px;
+    border-radius: 50%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: background 0.2s;
+}
+.yoga-splash-close:hover { background: rgba(200,75,12,0.8); }
+.yoga-splash--out {
+    animation: splashOut 0.7s ease forwards;
+    pointer-events: none;
+}
+@keyframes splashIn {
+    from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes splashOut {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(1.04); }
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root { --cream: #f0e4d3; --dark: #111111; --orange: #c84b0c; --text: #1a1a1a; }
 html { scroll-behavior: smooth; }

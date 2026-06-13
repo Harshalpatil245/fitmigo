@@ -12,6 +12,12 @@
 </head>
 <body>
 
+<!-- YOGA DAY SPLASH BANNER -->
+<div id="yogaSplash" class="yoga-splash">
+    <img src="images/yoga-day-banner.jpeg" alt="International Yoga Day — Fitmigo">
+    <button class="yoga-splash-close" id="yogaSplashClose" aria-label="Close">&#x2715;</button>
+</div>
+
 <!-- NAVBAR -->
 <nav>
     <a href="#home" class="nav-logo">
@@ -922,6 +928,32 @@
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Enquiry';
     });
+
+    /* ── YOGA DAY SPLASH ── */
+    (function() {
+        const EXPIRY = new Date('2026-06-21T23:59:59');
+        const splash  = document.getElementById('yogaSplash');
+        const closeBtn = document.getElementById('yogaSplashClose');
+
+        function hideSplash() {
+            splash.classList.add('yoga-splash--out');
+            setTimeout(() => splash.remove(), 700);
+        }
+
+        if (new Date() <= EXPIRY) {
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                hideSplash();
+                document.body.style.overflow = '';
+            }, 3000);
+            closeBtn.addEventListener('click', () => {
+                hideSplash();
+                document.body.style.overflow = '';
+            });
+        } else {
+            splash.remove();
+        }
+    })();
 </script>
 </body>
 </html>
