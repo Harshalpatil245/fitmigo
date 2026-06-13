@@ -407,13 +407,13 @@ footer { background: #0a0a0a; padding: 80px 60px 36px; color: #fff; }
 }
 .mobile-menu {
     position: fixed; top: 0; right: -100%; width: min(320px, 85vw);
-    height: 100vh; background: #fff; z-index: 9900;
+    height: 100vh; background: #fff; z-index: 9900; visibility: hidden;
     display: flex; flex-direction: column; padding: 80px 36px 40px;
     box-shadow: -8px 0 40px rgba(0,0,0,0.14);
     transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
     overflow-y: auto;
 }
-.mobile-menu.open { right: 0; }
+.mobile-menu.open { right: 0; visibility: visible; }
 .mobile-menu-close {
     position: absolute; top: 20px; right: 20px;
     background: none; border: none; font-size: 1.6rem;
